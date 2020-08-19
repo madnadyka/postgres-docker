@@ -1,0 +1,11 @@
+docker build -t postgres .
+docker container stop postgres
+docker container rm postgres
+docker run --rm \
+           --name postgres \
+           -v $(pwd)/data/postgres/:/var/lib/postgresql/data/ \
+           -v $(pwd)/data/socket/:/var/run/postgresql/ \
+           -v $(pwd)/postgresql.conf:/etc/postgresql.conf \
+           --net=host \
+           -it postgres \
+            -c config_file=/etc/postgresql.conf
